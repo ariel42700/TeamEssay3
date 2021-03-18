@@ -1,0 +1,44 @@
+---
+title: "Team_Essay_3"
+author: "Sahil, Ariel, Ilya, Lekha, Anthony, Trang"
+date: "3/18/2021"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Introduction
+
+## Formula and Basics
+
+## Loading required R packages
+
+## Data description
+
+## Examples of data and problem
+
+## Visualization
+
+## Analysis
+
+## Computation
+
+## Interpretation
+
+## Model evaluation
+
+## Regression line
+
+## Model assessment
+
+## Model summary
+
+## Coefficients significance Prediction and Model accuracy
+
+## Conclusion 
+
+## Summary
+
+## Reference
