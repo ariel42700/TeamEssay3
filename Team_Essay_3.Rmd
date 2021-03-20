@@ -15,13 +15,55 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## Loading required R packages
 
+```{r}
+library("readxl")
+library("tidyverse")
+library("flexplot")
+```
+
+
 ## Data description
+
+```{r}
+titanic <- read_excel("Titanic.xlsx")
+titanic
+```
+
 
 ## Examples of data and problem
 
 ## Visualization
 
+This the bi-variate dependency result.
+
+```{r}
+a = flexplot(Name~1, data = titanic)
+b = flexplot(PClass~1, data = titanic)
+c = flexplot(Age~1, data = titanic)
+d = flexplot(Sex~1, data = titanic)
+e = flexplot(Survived~1, data = titanic)
+require(cowplot)
+plot_grid(a, b, c, d, e, nrow=2)
+```
+
+
 ## Analysis
+
+Let us look at the multivariate dependency result.
+
+```{r}
+f = flexplot(Survived~Sex | Age + PClass, data = titanic, method="Binomial", se=F, jitter=c(0, 0.2)) 
+plot_grid(f)
+```
+
+
+```{r}
+f = flexplot(Survived~Age, data = titanic, method="Binomial", se=F, jitter=c(0, 0.1))
+g = flexplot(Survived~Sex, data = titanic, method="Binomial", se=F, jitter=c(0, 0.2))
+h = flexplot(Survived~PClass, data = titanic, method="Binomial", se=F, jitter=c(0, 0.2))
+plot_grid(f, g, h)
+```
+
 
 ## Computation
 
