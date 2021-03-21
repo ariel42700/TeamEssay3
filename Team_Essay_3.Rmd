@@ -24,13 +24,19 @@ library("flexplot")
 
 ## Data description
 
+Examples of data and problem: 
+
+- Name: represents name of passenger
+- PClass: represents the passenger class (1st, 2nd, 3rd)
+- Age: represents age of the passenger in years (N/A if unknown)
+- Sex: represents the sex of the passenger in terms of Male/Female
+- Survived: represents survival status of passenger in terms of survived(1)/didn't survive(0)
 ```{r}
 titanic <- read_excel("Titanic.xlsx")
+titanic <- titanic[1:1313,]
 titanic
 ```
 
-
-## Examples of data and problem
 
 ## Visualization
 
