@@ -19,6 +19,7 @@ knitr::opts_chunk$set(echo = TRUE)
 library("readxl")
 library("tidyverse")
 library("flexplot")
+library("caret")
 ```
 
 
@@ -34,7 +35,13 @@ Examples of data and problem:
 ```{r}
 titanic <- read_excel("Titanic.xlsx")
 titanic <- titanic[1:1313,]
-titanic
+index <- titanic$Age != "NA"
+titanic <- titanic[index, ]
+titanic$PClass = as.factor(titanic$PClass)
+titanic$Sex = as.factor(titanic$Sex)
+titanic$Survived = as.factor(titanic$Survived)
+titanic$Age = as.factor(titanic$Age)
+str(titanic)
 ```
 
 
@@ -64,7 +71,7 @@ plot_grid(f)
 
 
 ```{r}
-f = flexplot(Survived~Age, data = titanic, method="Binomial", se=F, jitter=c(0, 0.1))
+f = plot(x = titanic$Age, y = titanic$Survived)
 g = flexplot(Survived~Sex, data = titanic, method="Binomial", se=F, jitter=c(0, 0.2))
 h = flexplot(Survived~PClass, data = titanic, method="Binomial", se=F, jitter=c(0, 0.2))
 plot_grid(f, g, h)
@@ -72,6 +79,19 @@ plot_grid(f, g, h)
 
 
 ## Computation
+```{r}
+model_1 <- glm(Survived~ PClass + Sex, data=titanic, family=binomial)
+
+summary(model_1)
+summary(model_1$fitted.values)
+anova(model_1)
+
+model_1_pred <- predict(model_1, type = "response")
+u <- union(model_1_pred, titanic$Survived)
+t <- table(factor(model_1_pred, u), factor(titanic$Survived, u))
+print(t)
+```
+
 
 ## Interpretation
 
