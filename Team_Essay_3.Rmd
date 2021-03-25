@@ -26,6 +26,8 @@ library("flexplot")
 
 ```{r}
 titanic <- read_excel("Titanic.xlsx")
+index <- titanic$Age != "NA"
+titanic <- titanic[index, ]
 titanic
 ```
 
@@ -58,14 +60,21 @@ plot_grid(f)
 
 
 ```{r}
-f = flexplot(Survived~Age, data = titanic, method="Binomial", se=F, jitter=c(0, 0.1))
+f = flexplot(Survived~Age + Sex + PClass, data = titanic, method="Binomial", se=F, jitter=c(0, 0.1))
 g = flexplot(Survived~Sex, data = titanic, method="Binomial", se=F, jitter=c(0, 0.2))
 h = flexplot(Survived~PClass, data = titanic, method="Binomial", se=F, jitter=c(0, 0.2))
-plot_grid(f, g, h)
+plot_grid(f)
 ```
 
 
 ## Computation
+
+```{r}
+model_1 <- glm(Survived~Age + PClass + Sex, data=titanic, family=binomial)
+model_1_probs = predict(model_1, type="response")
+
+```
+
 
 ## Interpretation
 
