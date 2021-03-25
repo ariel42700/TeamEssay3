@@ -94,9 +94,12 @@ summary(model_1)
 summary(model_1$fitted.values)
 anova(model_1)
 model_1_pred <- predict(model_1, type = "response")
-u <- union(model_1_pred, titanic$Survived)
-t <- table(factor(model_1_pred, u), factor(titanic$Survived, u))
-print(t)
+
+model_2 <- glm(Survived~ PClass + Sex, data=titanic, family=binomial)
+model_2_probs = predict(model_2, type="response")
+model_2_predict <- rep("0", nrow(titanic))
+model_2_predict[model_2_probs < .5] <- "1"
+table(Predicted = model_2_predict, Reference = titanic$Survived)
 ```
 
 Ariel needs to explain the computation.
