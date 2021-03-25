@@ -11,7 +11,11 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## Introduction
 
+Trang.
+
 ## Formula and Basics
+
+Trang.
 
 ## Loading required R packages
 
@@ -19,24 +23,40 @@ knitr::opts_chunk$set(echo = TRUE)
 library("readxl")
 library("tidyverse")
 library("flexplot")
+library("caret")
 ```
 
 
 ## Data description
 
+Examples of data and problem: 
+
+- Name: represents name of passenger
+- PClass: represents the passenger class (1st, 2nd, 3rd)
+- Age: represents age of the passenger in years (N/A if unknown)
+- Sex: represents the sex of the passenger in terms of Male/Female
+- Survived: represents survival status of passenger in terms of survived(1)/didn't survive(0)
+
 ```{r}
 titanic <- read_excel("Titanic.xlsx")
+titanic <- titanic[1:1313,]
 index <- titanic$Age != "NA"
 titanic <- titanic[index, ]
-titanic
+titanic$PClass = as.factor(titanic$PClass)
+titanic$Sex = as.factor(titanic$Sex)
+titanic$Survived = as.factor(titanic$Survived)
+titanic$Age = as.factor(titanic$Age)
+str(titanic)
 ```
 
 
-## Examples of data and problem
-
 ## Visualization
 
-This the bi-variate dependency result.
+Anthony needs to do the visualization.
+
+## Analysis
+
+This is the bi-variate dependency result.
 
 ```{r}
 a = flexplot(Name~1, data = titanic)
@@ -48,48 +68,56 @@ require(cowplot)
 plot_grid(a, b, c, d, e, nrow=2)
 ```
 
+This neat visualization shows us the number of people that are male/female, the number of people that survived, the number of people aged between ranges and the number of people belonging to 1st, 2nd and 3rd class respectively.
 
-## Analysis
-
-Let us look at the multivariate dependency result.
+This is the multivariate dependency result.
 
 ```{r}
-f = flexplot(Survived~Sex | Age + PClass, data = titanic, method="Binomial", se=F, jitter=c(0, 0.2)) 
+f = flexplot(Survived~Sex + Age + PClass, data = titanic, method="Binomial", se=F, jitter=c(0, 0.2)) 
 plot_grid(f)
 ```
 
 
 ```{r}
-f = flexplot(Survived~Age + Sex + PClass, data = titanic, method="Binomial", se=F, jitter=c(0, 0.1))
+f = plot(x = titanic$Age, y = titanic$Survived)
 g = flexplot(Survived~Sex, data = titanic, method="Binomial", se=F, jitter=c(0, 0.2))
 h = flexplot(Survived~PClass, data = titanic, method="Binomial", se=F, jitter=c(0, 0.2))
-plot_grid(f)
+plot_grid(f, g, h)
 ```
 
 
-## Computation
+## Computation and Model assessment
 
 ```{r}
-model_1 <- glm(Survived~Age + PClass + Sex, data=titanic, family=binomial)
-model_1_probs = predict(model_1, type="response")
-
+model_1 <- glm(Survived~ PClass + Sex, data=titanic, family=binomial)
+summary(model_1)
+summary(model_1$fitted.values)
+anova(model_1)
+model_1_pred <- predict(model_1, type = "response")
+u <- union(model_1_pred, titanic$Survived)
+t <- table(factor(model_1_pred, u), factor(titanic$Survived, u))
+print(t)
 ```
 
+Ariel needs to explain the computation.
 
-## Interpretation
+## Interpretation and Model evaluation
 
-## Model evaluation
-
-## Regression line
-
-## Model assessment
-
-## Model summary
-
+We interpret the results given by the model as:
+  + Sex and PClass are the 2 significant predictors, hence we make the model which includes only them.
+  + Name and Age are the 2 insignificant predictors, hence we thought it was safe to remove them during model creation.
+  + People who survived mostly belonged to the 1st and 3rd Class and were females.
+  + Our model is not perfect since AIC can be much smaller than the current value. (AIC: 731.59)
+  + The residual deviance also could have been lower, but this is due to more numeber of outliers. (Residual deviance:  723.59  on      752  degrees of freedom)
+  
 ## Coefficients significance Prediction and Model accuracy
 
-## Conclusion 
+Ilya and Lekha
 
-## Summary
+## Conclusion and Summary
+
+Ilya and Lekha
 
 ## Reference
+
+Ilya and Lekha
