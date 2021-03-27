@@ -99,25 +99,50 @@ table(Predicted = model_2_predict, Reference = titanic$Survived)
 ```
 
 
-First things first we construct our binomial model which relates whether the passenger survived to the passenger's boarding class and sex. When we look at the summary and      plots of this model, we see that not only are the predictors significant, but our residuals are quite close to our actual values. However, the AIC value is pretty high which can indicate that our model is not actually a good fit. Nonetheless, what matters is actually testing our model's predictive capabilities. We do this by calculating the 
-probability of that someone on the titanic survived. Then, for any probability that is greater than 60% that the passenger survived, we predict that the passenger actually   did survive. Finally, we create a confusion matrix to see how many survived and deceased passengers we correctly predicted along with the passengers we incorrectly           predicted. Using this, we can calculate the overall accuracy of our predictive model that, when computed, gives us an accuracy of around 79%. 
+First things first we construct our binomial model which relates whether the passenger survived to the passenger's boarding class and sex. When we look at the summary and    plots of this model, we see that not only are the predictors significant, but our residuals are quite close to our actual values. However, the AIC value is pretty high which can indicate that our model is not actually a good fit. Nonetheless, what matters is actually testing our model's predictive capabilities. We do this by calculating the probability of that someone on the titanic survived. Then, for any probability that is greater than 60% that the passenger survived, we predict that the passenger actually   did survive. Finally, we create a confusion matrix to see how many survived and deceased passengers we correctly predicted along with the passengers we incorrectly           predicted. Using this, we can calculate the overall accuracy of our predictive model that, when computed, gives us an accuracy of around 79%. 
+
 ## Interpretation and Model evaluation
 
 We interpret the results given by the model as:
+
   + Sex and PClass are the 2 significant predictors, hence we make the model which includes only them.
   + Name and Age are the 2 insignificant predictors, hence we thought it was safe to remove them during model creation.
   + People who survived mostly belonged to the 1st and 3rd Class and were females.
   + Our model is not perfect since AIC can be much smaller than the current value. (AIC: 731.59)
-  + The residual deviance also could have been lower, but this is due to more numeber of outliers. (Residual deviance:  723.59  on      752  degrees of freedom)
+  + The residual deviance also could have been lower, but this is due to more number of outliers. (Residual deviance:  723.59  on      752  degrees of freedom)
   
-## Coefficients significance Prediction and Model accuracy
+## Coefficients significance 
+```{R}
+summary(model_2)
+```
+The coefficients and their respective P-values for our model:
 
-Ilya and Lekha
+  + PClass2nd: -0.7936711 with a P-value of 0.00067
+  + PClass3rd: -1.8603793 with a P-value of 1.04e-15
+  + Sexmale: -2.6212723 with a P-value of 2e-16
+
+We can see that the P-values are very close if not equal to 0 which shows that all of the coefficients are significant.
+
+## Prediction and Model accuracy
+```{R}
+table(Predicted = model_2_predict, Reference = titanic$Survived)
+```
+From the computed confusion matrix, we can see that our model predicted 599 out of the 756 total data points correctly. Essentially, we can say that our model was able to predict whether a passenger aboard the titanic was able to survive with an accuracy of 79%.   
 
 ## Conclusion and Summary
 
-Ilya and Lekha
+First things first, we modified our data to remove any data points not containing a specified age for the passenger. From this, we then constructed our binomial model to relate each passenger’s survival verdict to their boarding class and sex. We graphically depicted the distribution of values for each of the variables, from which we deduced the observations that there were more males than females, there were less of survivors overall, and most of the passengers were in their youth (below 30). We then observed visually the chances of survival for each age, followed by the proportions of those who survived based on their class and sex separately. We deduced that most of those who survived were female passengers of first class or third class.
+We then constructed a generalized linear model using the logit function given that the response variable is binomial, and from finding the sex and passenger class to be the two significant predictor variables, we built our model such that it contains only these variables.
+When assessing the model and the computation, including observing the details of the model summary, we found the following values as the coefficients of our model:
+B0: 2.1628
+B1: -0.7937
+B2: -1.8604
+B3: -2.6213
+We plotted the residuals of the model only containing the two predictor variables sex and passenger class, and found that the residuals are quite close to our actual values. The residuals follow constant variance; this suggests that our model is a good fit. This is contradicted by looking at our AIC value, which was actually higher than expected. 
+Nonetheless, what matters is actually testing our model's predictive capabilities. We do this by passing to the model all of the passengers with the corresponding data as input, calculating the probability of survival for each passenger, and building the model’s confusion matrix. This matrix tells us how many passengers’ survival verdict the model predicted correctly and incorrectly, for which we set the minimum cutoff probability value for the passenger to be considered a survivor as 60%.
+According to this matrix, we found that our model was able to determine the survival status of most of the passengers accurately, as it correctly predicted 428 and 171 to not have survived and to have survived respectively, while only 15 and 142 were incorrectly predicted in the same way. Therefore, we found the overall accuracy of our predictive model to be 79%, and hence a satisfactory model to be used for predicting a passenger’s survival chances on the Titanic.
 
 ## Reference
 
-Ilya and Lekha
+https://www.guru99.com/r-generalized-linear-model.html
+http://www.john-ros.com/Rcourse/lm.html
