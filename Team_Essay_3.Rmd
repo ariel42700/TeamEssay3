@@ -11,11 +11,11 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## Introduction
 
-Trang.
+In this essay, our team tries to use a kind of Logistic regression, specifically the binomial regression in predicting the probability outcome of survival in Titanic. We use data about the passengers in the "Titanic" to imagine the application of binomial regression in predicting. The logistic regression has two forms y = 0 or y = 1 - which states that 0 is not survived and 1 is survived. We will figure out the probability based on two variables: Passenger class and Sex as the significant factors.
 
 ## Formula and Basics
 
-Trang.
+Trang or Anthony.
 
 ## Loading required R packages
 
@@ -25,7 +25,6 @@ library("tidyverse")
 library("flexplot")
 library("caret")
 ```
-
 
 ## Data description
 
