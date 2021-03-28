@@ -1,7 +1,7 @@
 ---
 title: "Team_Essay_3"
 author: "Sahil, Ariel, Ilya, Lekha, Anthony, Trang"
-date: "3/18/2021"
+date: "3/28/2021"
 output: pdf_document
 ---
 
@@ -15,7 +15,13 @@ In this essay, our team tries to use a kind of Logistic regression, specifically
 
 ## Formula and Basics
 
-Trang or Anthony.
+$p=1/(1+exp(E[y]))$ in that :  $E[y]$ = $\beta_0$ + $\beta_1x_1$ + $\beta_2x_2$ +...+$\beta_kx_k$ + $\epsilon$
+
++ p is the logit probability to predict the model.
++ $\beta_0$ is value of y when all $x_k$ are equal to zero.
++ $\beta_k$ are beta coefficients which measure the correlation between the result and its predictor variables.
++ $x_k$ are the independent variables.
++ $\epsilon$ is the error term, the part of y that can be explained through the regression model.
 
 ## Loading required R packages
 
