@@ -40,6 +40,7 @@ Examples of data and problem:
 ```{r}
 titanic <- read_excel("Titanic.xlsx")
 titanic <- titanic[1:1313,]
+full_titanic_data <- titanic[1:1313,]
 index <- titanic$Age != "NA"
 titanic <- titanic[index, ]
 titanic$PClass = as.factor(titanic$PClass)
@@ -51,8 +52,18 @@ str(titanic)
 
 
 ## Visualization
+```{r}
+sex_bar_graph = flexplot(Sex~1, data = full_titanic_data)
+class_bar_graph = flexplot(PClass~1, data = full_titanic_data)
+survived_bar_graph = flexplot(Survived~1, data = full_titanic_data)
+require(cowplot)
+plot_grid(sex_bar_graph, class_bar_graph, survived_bar_graph, nrow = 1)
+```
+The first bar graph is a representation of the all passengers on the Titanic in terms of Sex. In this graph we can see that male passengers out number female passengers with a total over 800 compared to female passengers who total a little over 400. 
 
-Anthony needs to do the visualization.
+In the second graph we charted the totals of all 3 different passenger classes. As shown, the 3rd passenger class outnumbered the other two classes with a total slightly over 700 passengers. 1st and 2nd class totals sat at around 300 and a little under 300 passengers. 
+
+The third graph illustrates the total amount of passengers that survived in comparison to those who did not. From this we can see that there is around a 300 passenger difference between those survivors and non-survivors. Non-survivors totaled over 750 passengers whereas the survivors totaled under 500 passengers.
 
 ## Analysis
 
