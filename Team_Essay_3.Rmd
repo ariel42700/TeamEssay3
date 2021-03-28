@@ -15,7 +15,7 @@ In this essay, our team tries to use a kind of Logistic regression, specifically
 
 ## Formula and Basics
 
-$p=1/(1+exp(E[y]))$ in that :  $E[y]$ = $\beta_0$ + $\beta_1x_1$ + $\beta_2x_2$ +...+$\beta_kx_k$ + $\epsilon$
+$p=1/(1+exp(-E[y]))$ in that :  $E[y]$ = $\beta_0$ + $\beta_1x_1$ + $\beta_2x_2$ +...+$\beta_kx_k$ + $\epsilon$
 
   + p is the logit probability to predict the model.
   + $\beta_0$ is value of y when all $x_k$ are equal to zero.
